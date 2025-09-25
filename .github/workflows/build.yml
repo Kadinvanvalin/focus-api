@@ -15,5 +15,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/focus-api:sha-${{ github.sha }}
+          tags: ghcr.io/${{ toLower(github.repository_owner)  }}/focus-api:sha-${{ github.sha }}
           platforms: linux/arm64   # Pi-friendly (or add linux/amd64 for multi-arch)
