@@ -51,7 +51,7 @@ def parse_checklist():
         "status": "ok",
         "total": total,
         "completed": completed,
-        "next": next_item or "ߎ頁ll done!"
+        "next": next_item or "well done!"
     }
 # Allow local development from Tronbyt app
 app.add_middleware(
@@ -86,8 +86,16 @@ def parse_checklist(path=MARKDOWN_PATH):
         "status": "ok",
         "total": total,
         "completed": completed,
-        "next": next_item or "ߎ頁ll done!"
+        "next": next_item or "well done!"
     }
+    
+@app.get("/")
+def index():
+    return {"ok": True, "hint": "use /focus or /healthz"}
+
+@app.get("/healthz")
+def healthz():
+    return {"ok": True}
 
 @app.get("/focus")
 def get_focus():
