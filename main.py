@@ -88,7 +88,7 @@ def parse_checklist(path=MARKDOWN_PATH):
         "completed": completed,
         "next": next_item or "well done!"
     }
-    
+
 @app.get("/")
 def index():
     return {"ok": True, "hint": "use /focus or /healthz"}
