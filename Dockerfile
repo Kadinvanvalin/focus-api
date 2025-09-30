@@ -5,8 +5,8 @@ RUN apt-get update && \
 	    apt-get clean && \
 	    rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /root/.ssh && \
-					ssh-keyscan github.com >> /root/.ssh/known_hosts
+#RUN mkdir -p /root/.ssh && \
+#					ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 WORKDIR /app
 

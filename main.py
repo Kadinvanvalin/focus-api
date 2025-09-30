@@ -99,12 +99,12 @@ def healthz():
 
 @app.get("/focus")
 def get_focus():
-    error = clone_or_pull_repo()
-    if error:
-        return {
-            "status": "error",
-            "message": error
-        }
+#     error = clone_or_pull_repo()
+#     if error:
+#         return {
+#             "status": "error",
+#             "message": error
+#         }
     return parse_checklist()
 
 if __name__ == "__main__":
