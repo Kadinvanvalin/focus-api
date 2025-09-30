@@ -16,7 +16,7 @@ MARKDOWN_PATH = f"{REPO_PATH}/TODO.md"
 REPO_URL = "git@github.com:Kadinvanvalin/notes.git"
 
 def clone_or_pull_repo():
-    if not os.path.exists(REPO_PATH):
+    if not os.path.exists(f"{REPO_PATH}/.git/"):
         try:
             subprocess.run(["git", "clone", REPO_URL, REPO_PATH], check=True)
         except subprocess.CalledProcessError as e:
