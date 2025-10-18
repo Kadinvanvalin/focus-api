@@ -13,20 +13,6 @@ import re
 
 REPO_PATH = "/app/notes"
 MARKDOWN_PATH = f"{REPO_PATH}/TODO.md"
-REPO_URL = "git@github.com:Kadinvanvalin/notes.git"
-
-def clone_or_pull_repo():
-    if not os.path.exists(f"{REPO_PATH}/.git/"):
-        try:
-            subprocess.run(["git", "clone", REPO_URL, REPO_PATH], check=True)
-        except subprocess.CalledProcessError as e:
-            return f"Git clone failed: {e}"
-    else:
-        try:
-            subprocess.run(["git", "-C", REPO_PATH, "pull"], check=True)
-        except subprocess.CalledProcessError as e:
-            return f"Git pull failed: {e}"
-    return None  # success
 
 def parse_checklist():
     try:
@@ -91,7 +77,7 @@ def parse_checklist(path=MARKDOWN_PATH):
 
 @app.get("/")
 def index():
-    return {"ok": True, "hint": "use /focus or /healthz"}
+    return {"ok": True, "version":"0.1.0", "hint": "use /focus or /healthz"}
 
 @app.get("/healthz")
 def healthz():
@@ -99,12 +85,6 @@ def healthz():
 
 @app.get("/focus")
 def get_focus():
-#     error = clone_or_pull_repo()
-#     if error:
-#         return {
-#             "status": "error",
-#             "message": error
-#         }
     return parse_checklist()
 
 if __name__ == "__main__":

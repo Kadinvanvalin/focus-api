@@ -15,5 +15,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/kadinvanvalin/focus-api:sha-${{ github.sha }}
+          tags: |
+            ghcr.io/kadinvanvalin/focus-api:latest
+            ghcr.io/kadinvanvalin/focus-api:sha-${{ github.sha }}
           platforms: linux/arm64   # Pi-friendly (or add linux/amd64 for multi-arch)
