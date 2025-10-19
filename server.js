@@ -11,6 +11,7 @@ app.use(cors());
 
 const REPO_PATH = process.env.REPO_PATH || "/app/notes";
 const TODO_FILE = process.env.TODO_FILE || "TODO.md";
+
 const MARKDOWN_PATH = path.join(REPO_PATH, TODO_FILE);
 
 function iso(dt) {
@@ -52,8 +53,7 @@ async function parseChecklist(filePath = MARKDOWN_PATH) {
             total,
             completed,
             percent: total ? Math.floor((completed / total) * 100) : 0,
-            // next: nextItem || "well done!",
-            next: "button to auto-sync git and tron with lights and stuff?!",
+            next: nextItem || "well done!",
             last_updated: lastUpdated ? iso(lastUpdated) : null,
             age_hours: ageHours
         };
