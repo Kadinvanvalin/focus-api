@@ -67,14 +67,27 @@ app.get("/", (_req, res) => {
 });
 
 app.get("/healthz", (_req, res) => {
+    console.log("GET: /healthz")
     res.json({ ok: true });
 });
 
 app.get("/focus", async (_req, res) => {
+    console.log("GET: /focus")
     const data = await parseChecklist();
     res.json(data);
 });
 
+app.get("/projects", async (_req, res) => {
+    console.log("GET: /projects")
+    const data = ["Gits", "8086"];
+    res.json(data);
+});
+
+app.get("/chores", async (_req, res) => {
+    console.log("GET: /chores")
+    const data = ["Gits", "8086"];
+    res.json(data);
+});
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`focus-api (node) listening on :${PORT}`);
