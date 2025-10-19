@@ -1,19 +1,15 @@
-FROM python:3.11-slim
-# Install git and system deps
-RUN apt-get update && \
-	    apt-get install -y git openssh-client && \
-	    apt-get clean && \
-	    rm -rf /var/lib/apt/lists/*
-
-#RUN mkdir -p /root/.ssh && \
-#					ssh-keyscan github.com >> /root/.ssh/known_hosts
-
+FROM node:20-alpine
 WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY server.js ./server.js
 
-COPY . /app
+# Notes volume (mount your repo here)
+VOLUME ["/app/notes"]
 
-RUN pip install --no-cache-dir fastapi uvicorn
+ENV REPO_PATH=/app/notes
+ENV MARKDOWN_PATH=/app/notes/TODO.md
+ENV PORT=8080
 
 EXPOSE 8080
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["node", "server.js"]
