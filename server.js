@@ -63,7 +63,7 @@ async function parseChecklist(filePath = MARKDOWN_PATH) {
 }
 
 app.get("/", (_req, res) => {
-    res.json({ ok: true, version: "0.1.0", hint: "use /focus or /healthz" });
+    res.json({ ok: true, version: "0.1.0-a", hint: "use /focus or /healthz" });
 });
 
 app.get("/healthz", (_req, res) => {
