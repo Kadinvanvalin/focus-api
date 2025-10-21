@@ -17,7 +17,25 @@ const MARKDOWN_PATH = path.join(REPO_PATH, TODO_FILE);
 function iso(dt) {
     return dt ? new Date(dt).toISOString() : null;
 }
+async function reminders() {
+    try {
+        const raw = await fs.readFile(path.join(REPO_PATH,"aphorisms.md") , "utf8");
+        const lines = raw.split(/\r?\n/);
+        const aphorisms = [];
+        const re = /^- (.+)$/;
 
+        for (const line of lines) {
+            const m = line.match(re);
+            if (m) {
+                const text = m[1].trim();
+                aphorisms.push({ text });
+            }
+        }
+        return aphorisms
+    } catch (e) {
+        return { status: "error", message: `Could not read markdown: ${e.message}` };
+    }
+}
 async function parseChecklist(filePath = MARKDOWN_PATH) {
     try {
         const raw = await fs.readFile(filePath, "utf8");
@@ -80,6 +98,11 @@ app.get("/focus", async (_req, res) => {
 app.get("/projects", async (_req, res) => {
     console.log("GET: /projects")
     const data = ["Gits", "8086"];
+    res.json(data);
+});
+
+app.get("/reminder", async (_req, res) => {
+    const data = await reminders();
     res.json(data);
 });
 
