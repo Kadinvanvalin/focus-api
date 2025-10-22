@@ -17,6 +17,19 @@ const MARKDOWN_PATH = path.join(REPO_PATH, TODO_FILE);
 function iso(dt) {
     return dt ? new Date(dt).toISOString() : null;
 }
+async function things() {
+    try {
+        const raw = await fs.readFile(path.join(REPO_PATH,"/things/count.md") , "utf8");
+        const lines = raw.split(/\r?\n/);
+        console.log(lines)
+        const x = JSON.parse(lines[lines.length -1])
+        console.log(x)
+        return {"count":  x.count, updated_at: x.updated_at}
+    } catch (e) {
+        return { status: "error", message: `Could not read markdown: ${e.message}` };
+    }
+}
+
 async function reminders() {
     try {
         const raw = await fs.readFile(path.join(REPO_PATH,"aphorisms.md") , "utf8");
@@ -105,7 +118,10 @@ app.get("/reminder", async (_req, res) => {
     const data = await reminders();
     res.json(data);
 });
-
+app.get("/things", async (_req, res) => {
+    const data = await things();
+    res.json(data);
+});
 app.get("/chores", async (_req, res) => {
     console.log("GET: /chores")
     const data = ["Gits", "8086"];
